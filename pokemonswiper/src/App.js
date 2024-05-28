@@ -1,21 +1,91 @@
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
+// import HomePage from "./Components/HomePage";
+// import "./App.css";
+
+// function App() {
+//   const [start, setStart] = useState(false);
+
+//   useEffect(() => {
+//     //const id = Math.floor(Math.random() * 898) + 1;
+//     axios.get(`https://pokeapi.co/api/v2/pokemon/`).then((response) => {
+//       setStart(response.data);
+//       console.log(response.data);
+//     });
+//   }, []);
+//   return (
+//     <div className="App">
+//       <HomePage start={() => setStart(true)} />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+// src/App.js
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import HomePage from "./Components/HomePage";
+
+import axios from "axios";
 import "./App.css";
 
-function App() {
-  const [initiate, setInitiate] = useState(false);
+const App = () => {
+  const [started, setStarted] = useState(false);
+  const [pokemon, setPokemon] = useState(null);
 
-  useEffect((id) => {
-    //const id = Math.floor(Math.random() * 898) + 1;
-    axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`).then((response) => {
-      setInitiate(response.data);
-      console.log(response.data);
-    });
-  }, []);
-  return <div className="App">
-    <HomePage />
-    </div>;
-}
+  const [cardCount, setCardCount] = useState(0);
+  const [displayedIds, setDisplayedIds] = useState(new Set());
+
+  useEffect(() => {
+    if (started && cardCount < 10 && !pokemon) {
+      loadRandomPokemon();
+    }
+  }, [started, cardCount]);
+
+  const loadRandomPokemon = async () => {
+    let id;
+    do {
+      id = Math.floor(Math.random() * 898) + 1;
+    } while (displayedIds.has(id)); // Ensure unique ID
+    await fetchPokemonById(id);
+  };
+
+  const fetchPokemonById = async (id) => {
+    try {
+      const response = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${id}`
+      );
+      setPokemon(response.data);
+      setDisplayedIds(new Set([...displayedIds, id]));
+    } catch (error) {
+      console.error("Error fetching Pokémon data:", error);
+    }
+  };
+
+  // const fetchPokemonByName = async (name) => {
+  //   try {
+  //     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
+  //     setPokemon(response.data);
+  //   } catch (error) {
+  //     console.error('Error fetching Pokémon data:', error);
+  //   }
+  // };
+
+  const handleNextCard = () => {
+    if (cardCount < 9) {
+      // Limit to 10 cards
+      setCardCount(cardCount + 1);
+      loadRandomPokemon();
+    } else {
+      setPokemon(null); // Stop showing new cards after 10
+    }
+  };
+
+  return (
+    <div className="app">
+      <HomePage start={() => setStarted(true)} />
+    </div>
+  );
+};
 
 export default App;

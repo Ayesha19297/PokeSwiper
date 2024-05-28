@@ -28,8 +28,8 @@
   cursor: pointer;
   transition: background-color 0.3s;
   background-color: #4caf50;
-  color: white;
+  color: black;
   width: 30%;
   margin: auto;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: cursive;
 }

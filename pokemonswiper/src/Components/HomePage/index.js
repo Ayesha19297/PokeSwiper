@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import "./home.css";
 
-const HomePage = () => {
+const HomePage = ({ start }) => {
   return (
     <div className="container">
       <h2 className="heading">Hello, welcome to PokeSwiper!!!</h2>
@@ -15,11 +15,12 @@ const HomePage = () => {
         and build your favourite pokemon team
       </p>
       <motion.button
+        onClick={start}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         className="btn"
       >
-        Let's start
+        Let's Go !
       </motion.button>
     </div>
   );
