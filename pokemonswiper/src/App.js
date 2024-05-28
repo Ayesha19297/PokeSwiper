@@ -25,16 +25,16 @@
 // src/App.js
 import React, { useState, useEffect } from "react";
 import HomePage from "./Components/HomePage";
-
 import axios from "axios";
 import "./App.css";
+import SwipeAnimation from "./Components/SwipeAnimation.js";
 
 const App = () => {
   const [started, setStarted] = useState(false);
   const [pokemon, setPokemon] = useState(null);
-
   const [cardCount, setCardCount] = useState(0);
   const [displayedIds, setDisplayedIds] = useState(new Set());
+  const [likedPokemon, setLikedPokemon] = useState([]);
 
   useEffect(() => {
     if (started && cardCount < 10 && !pokemon) {
@@ -71,6 +71,15 @@ const App = () => {
   //   }
   // };
 
+  const handleLike = () => {
+    setLikedPokemon([...likedPokemon, pokemon]);
+    handleNextCard();
+  };
+
+  const handleDislike = () => {
+    handleNextCard();
+  };
+
   const handleNextCard = () => {
     if (cardCount < 9) {
       // Limit to 10 cards
@@ -83,7 +92,21 @@ const App = () => {
 
   return (
     <div className="app">
-      <HomePage start={() => setStarted(true)} />
+      {!started ? (
+        <HomePage start={() => setStarted(true)} />
+      ) : (
+        <div>
+          {pokemon ? (
+            <SwipeAnimation
+              pokemon={pokemon}
+              onLike={handleLike}
+              onDislike={handleDislike}
+            />
+          ) : (
+            <p>No more Pokemon cards to display.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };
