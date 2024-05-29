@@ -1,6 +1,10 @@
 .App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f7f7f7; /* Optional: to give a background color */
   text-align: center;
-  
 }
 
 @media (prefers-reduced-motion: no-preference) {

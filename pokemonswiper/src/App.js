@@ -11,9 +11,10 @@ const App = () => {
   const [cardCount, setCardCount] = useState(0);
   const [displayedIds, setDisplayedIds] = useState(new Set());
   const [likedPokemon, setLikedPokemon] = useState([]);
+  const [showLiked, setShowLiked] = useState(false);
 
   useEffect(() => {
-    if (started && cardCount < 10 && !pokemon) {
+    if (started && cardCount < 10) {
       loadRandomPokemon();
     }
   }, [started, cardCount]);
@@ -49,12 +50,24 @@ const App = () => {
 
   const handleNextCard = () => {
     if (cardCount < 9) {
-      // Limit to 10 cards
       setCardCount(cardCount + 1);
-      loadRandomPokemon();
     } else {
+      setCardCount(cardCount + 1);
       setPokemon(null); // Stop showing new cards after 10
     }
+  };
+
+  const toggleView = () => {
+    setShowLiked(!showLiked); // Toggle the view
+  };
+
+  const goToHome = () => {
+    setStarted(false);
+    setShowLiked(false);
+    setCardCount(0);
+    setLikedPokemon([]);
+    setDisplayedIds(new Set());
+    setPokemon(null);
   };
 
   return (
@@ -63,16 +76,32 @@ const App = () => {
         <HomePage start={() => setStarted(true)} />
       ) : (
         <div>
-          {pokemon ? (
-            <SwipeAnimation
-              pokemon={pokemon}
-              onLike={handleLike}
-              onDislike={handleDislike}
-            />
+          {!showLiked ? (
+            <div>
+              {cardCount < 10 ? (
+                <div>
+                  {pokemon ? (
+                    <SwipeAnimation
+                      pokemon={pokemon}
+                      onLike={handleLike}
+                      onDislike={handleDislike}
+                    />
+                  ) : (
+                    <p>Loading Pokémon...</p>
+                  )}
+                </div>
+              ) : (
+                <div>
+                  <p> You are done with choosing the team... great !!!</p>
+                  <button onClick={toggleView} className="view-liked-button">
+                    View Liked Pokémon
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
-            <p>No more Pokemon cards to display.</p>
+            <LikedCards likedPokemon={likedPokemon} goToHome={goToHome} />
           )}
-          <LikedCards likedPokemon={likedPokemon} />
         </div>
       )}
     </div>

@@ -1,5 +1,6 @@
 // src/components/PokemonCard.js
-import React from 'react';
+import React from "react";
+import {motion} from 'framer-motion';
 import "./cards.css";
 
 const PokemonCard = ({ pokemon, onLike, onDislike }) => {
@@ -11,26 +12,34 @@ const PokemonCard = ({ pokemon, onLike, onDislike }) => {
       <img src={imageUrl} alt={name} />
       <h2>{name}</h2>
       <div>
-        <strong>Abilities:</strong>
         <ul>
           {abilities.map((ability) => (
             <li key={ability.ability.name}>{ability.ability.name}</li>
           ))}
-        </ul>
-      </div>
-      <div>
-        <strong>Types:</strong>
-        <ul>
           {types.map((type) => (
             <li key={type.type.name}>{type.type.name}</li>
           ))}
         </ul>
       </div>
-      <div className="buttons">
-        <button onClick={onLike}>Like</button>
-        <button onClick={onDislike}>Dislike</button>
+      <div className="button">
+      <motion.button
+        onClick={onLike}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="like"
+      >
+        Like
+      </motion.button>
+      <motion.button
+        onClick={onDislike}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="dislike"
+      >
+        Dislike
+      </motion.button>
       </div>
-    </div>
+      </div>
   );
 };
 

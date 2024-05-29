@@ -1,21 +1,30 @@
 import React from "react";
 import "./likes.css";
 
-const LikedCards = ({ likedPokemon }) => {
+const LikedCards = ({ likedPokemon, goToHome }) => {
   return (
     <div className="liked-pokemon-list">
-      <h2>Liked Pokémon</h2>
-      <ul>
+      <h2>Your Pokemon team . . . </h2>
+      <div className="pokemon-grid">
         {likedPokemon.map((pokemon) => (
-          <li key={pokemon.id}>
+          <div key={pokemon.id} className="pokemon-card">
             <img
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`}
               alt={pokemon.name}
             />
-            <p>{pokemon.name}</p>
-          </li>
+            <h3>{pokemon.name}</h3>
+            <p> {pokemon.types.map((type) => type.type.name).join(", ")}</p>
+            <p>
+              {pokemon.abilities
+                .map((ability) => ability.ability.name)
+                .join(", ")}
+            </p>
+          </div>
         ))}
-      </ul>
+      </div>
+      <button onClick={goToHome} className="back-to-home-button">
+        Back to Home
+      </button>
     </div>
   );
 };

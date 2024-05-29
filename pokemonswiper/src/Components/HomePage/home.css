@@ -8,6 +8,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+  align-items: center;
 }
 .heading {
   font-size: 40px;
