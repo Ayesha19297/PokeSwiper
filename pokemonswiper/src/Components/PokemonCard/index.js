@@ -9,6 +9,7 @@ const PokemonCard = ({ pokemon, onLike, onDislike }) => {
   return (
     <motion.div
       className="pokemon-card"
+      key={name}
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 50 }}
@@ -32,10 +33,26 @@ const PokemonCard = ({ pokemon, onLike, onDislike }) => {
         <div>
           <ul>
             {abilities.map((ability) => (
-              <li key={ability.ability.name}>{ability.ability.name}</li>
+              <motion.li
+                key={ability.ability.name}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.9 }}
+                className="ability"
+              >
+                {ability.ability.name}
+              </motion.li>
             ))}
             {types.map((type) => (
-              <li key={type.type.name}>{type.type.name}</li>
+              <motion.li
+                key={type.type.name}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1.2 }}
+                className="type"
+              >
+                {type.type.name}
+              </motion.li>
             ))}
           </ul>
         </div>

@@ -22,7 +22,9 @@
 .view-liked-button {
   margin: 20px;
   padding: 10px 20px;
-  background-color: #ffcc00;
+  background-color: black;
+  font-family: cursive;
+  color: whitesmoke;
   border: none;
   border-radius: 5px;
   font-size: 16px;
@@ -30,5 +32,5 @@
 }
 
 .view-liked-button:hover {
-  background-color: #ff9900;
+  background-color: #4d4c4b;
 }
