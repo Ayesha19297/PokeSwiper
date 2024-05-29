@@ -1,33 +1,9 @@
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-// import HomePage from "./Components/HomePage";
-// import "./App.css";
-
-// function App() {
-//   const [start, setStart] = useState(false);
-
-//   useEffect(() => {
-//     //const id = Math.floor(Math.random() * 898) + 1;
-//     axios.get(`https://pokeapi.co/api/v2/pokemon/`).then((response) => {
-//       setStart(response.data);
-//       console.log(response.data);
-//     });
-//   }, []);
-//   return (
-//     <div className="App">
-//       <HomePage start={() => setStart(true)} />
-//     </div>
-//   );
-// }
-
-// export default App;
-
-// src/App.js
 import React, { useState, useEffect } from "react";
 import HomePage from "./Components/HomePage";
 import axios from "axios";
 import "./App.css";
 import SwipeAnimation from "./Components/SwipeAnimation.js";
+import LikedCards from "./Components/LikedCards";
 
 const App = () => {
   const [started, setStarted] = useState(false);
@@ -61,15 +37,6 @@ const App = () => {
       console.error("Error fetching Pokémon data:", error);
     }
   };
-
-  // const fetchPokemonByName = async (name) => {
-  //   try {
-  //     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
-  //     setPokemon(response.data);
-  //   } catch (error) {
-  //     console.error('Error fetching Pokémon data:', error);
-  //   }
-  // };
 
   const handleLike = () => {
     setLikedPokemon([...likedPokemon, pokemon]);
@@ -105,6 +72,7 @@ const App = () => {
           ) : (
             <p>No more Pokemon cards to display.</p>
           )}
+          <LikedCards likedPokemon={likedPokemon} />
         </div>
       )}
     </div>
