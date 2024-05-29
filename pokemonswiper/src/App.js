@@ -87,14 +87,14 @@ const App = () => {
                       onDislike={handleDislike}
                     />
                   ) : (
-                    <p>Loading Pokémon...</p>
+                    <p className="finish msg">Loading Pokemon...</p>
                   )}
                 </div>
               ) : (
-                <div>
-                  <p> You are done with choosing the team... great !!!</p>
+                <div className="finish">
+                  <p className="msg"> You are done with choosing the team... great !!!</p>
                   <button onClick={toggleView} className="view-liked-button">
-                    View Liked Pokémon
+                    View your Pokemon team
                   </button>
                 </div>
               )}

@@ -1,12 +1,12 @@
-.liked-pokemon-list {
+.liked-pokemon {
   text-align: center;
   padding: 20px;
 }
 
-.liked-pokemon-list h2 {
+.liked-pokemon h2 {
   font-size: 2em;
   color: black;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   margin-bottom: 20px;
 }
 
@@ -18,13 +18,15 @@
 }
 
 .pokemon-card {
-  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px;
-  width: 200px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-image: linear-gradient(to right, pink, rgb(174, 174, 241));
 }
 
 .pokemon-card img {
@@ -38,9 +40,10 @@
   color: #333;
 }
 
-.pokemon-card p {
-  font-size: 1em;
-  color: #666;
+.pokemon-card h2 {
+  font-size: 20px;
+  color: black;
+  font-family: cursive;
 }
 
 .back-to-home-button {
