@@ -12,13 +12,30 @@ const App = () => {
   const [displayedIds, setDisplayedIds] = useState(new Set());
   const [likedPokemon, setLikedPokemon] = useState([]);
   const [showLiked, setShowLiked] = useState(false);
+  const [mode, setMode] = useState("light");
 
+  //load a random pokemon when app started and card count is less than 10
   useEffect(() => {
     if (started && cardCount < 10) {
       loadRandomPokemon();
     }
   }, [started, cardCount]);
 
+  //To load the saved theme mode
+  useEffect(() => {
+    const savedMode = localStorage.getItem("mode");
+    if (savedMode) {
+      setMode(savedMode);
+    }
+  }, []);
+
+  //To apply current theme mode to the body
+  useEffect(() => {
+    document.body.className = mode;
+    console.log(`Theme set to: ${mode}`);
+  }, [mode]);
+
+  //picks a random pokemon id that has not been displayed before and generates unique id
   const loadRandomPokemon = async () => {
     let id;
     do {
@@ -27,6 +44,7 @@ const App = () => {
     await fetchPokemonById(id);
   };
 
+  //fetch details of pokemon by taking the generated unique id
   const fetchPokemonById = async (id) => {
     try {
       const response = await axios.get(
@@ -35,19 +53,23 @@ const App = () => {
       setPokemon(response.data);
       setDisplayedIds(new Set([...displayedIds, id]));
     } catch (error) {
-      console.error("Error fetching Pokémon data:", error);
+      console.error("Error fetching Pokemon data:", error);
+      setPokemon(null);
     }
   };
 
+  //when like button is clicked, maintain a record of that card and display next card
   const handleLike = () => {
     setLikedPokemon([...likedPokemon, pokemon]);
     handleNextCard();
   };
 
+  //when dislike button is clicked, display next card
   const handleDislike = () => {
     handleNextCard();
   };
 
+  //function to display or not display the next pokemon card
   const handleNextCard = () => {
     if (cardCount < 9) {
       setCardCount(cardCount + 1);
@@ -61,6 +83,13 @@ const App = () => {
     setShowLiked(!showLiked); // Toggle the view
   };
 
+  //switch between dark and light mode
+  const toggleMode = () => {
+    const newMode = mode === "light" ? "dark" : "light";
+    setMode(newMode);
+    localStorage.setItem("mode", newMode);
+  };
+
   const goToHome = () => {
     setStarted(false);
     setShowLiked(false);
@@ -72,6 +101,11 @@ const App = () => {
 
   return (
     <div className="app">
+      {/* button to choose dark or light mode  */}
+      <button onClick={toggleMode} className="mode-toggle-button">
+        Switch to {mode === "light" ? "Dark" : "Light"} Mode
+      </button>
+      {/* conditional rendering */}
       {!started ? (
         <HomePage start={() => setStarted(true)} />
       ) : (
@@ -92,7 +126,9 @@ const App = () => {
                 </div>
               ) : (
                 <div className="finish">
-                  <p className="msg"> You are done with choosing the team... great !!!</p>
+                  <p className="msg">
+                    You are done with choosing the team... great !!!
+                  </p>
                   <button onClick={toggleView} className="view-liked-button">
                     View your Pokemon team
                   </button>

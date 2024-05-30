@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  background-image: url("https://img.freepik.com/free-vector/gradient-zoom-effect-background_23-2149735606.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1716768000&semt=ais_user");
+  /* background-image: url("https://img.freepik.com/free-vector/gradient-zoom-effect-background_23-2149735606.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1716768000&semt=ais_user"); */
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
@@ -13,7 +13,7 @@
 .heading {
   font-size: 40px;
   font-family: Georgia, "Times New Roman", Times, serif;
-  color: black;
+  /* color: black; */
 }
 .content {
   margin: 10px;

@@ -5,7 +5,7 @@
 
 .liked-pokemon h2 {
   font-size: 2em;
-  color: black;
+  /* color: black; */
   font-family: "Times New Roman", Times, serif;
   margin-bottom: 20px;
 }

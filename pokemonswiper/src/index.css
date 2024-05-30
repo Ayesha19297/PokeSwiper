@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-image: linear-gradient(to right, rgb(174, 174, 241), pink);
+  /* background-image: linear-gradient(to right, rgb(174, 174, 241), pink); */
   font-family: cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
